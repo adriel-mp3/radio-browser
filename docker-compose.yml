@@ -1,0 +1,12 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: .  # Usa a raiz do projeto onde está o Dockerfile
+    container_name: vue-frontend
+    ports:
+      - "5173:5173"  # Porta usada pelo Vite no modo desenvolvimento
+    volumes:
+      - .:/app  # Sincroniza os arquivos do projeto no container
+      - /app/node_modules  # Evita conflitos de dependências
+    command: ["npm", "run", "dev", "--", "--host"]
