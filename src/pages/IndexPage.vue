@@ -17,6 +17,7 @@ const {
   changePage,
   favoriteSearch,
   filteredFavoriteRadios,
+  favoriteRadios
 } = useRadioStation();
 </script>
 
@@ -33,7 +34,10 @@ const {
       <p v-if="isLoading" class="text-gray-400 text-center my-4">
         🔄 Buscando rádios...
       </p>
-      <RadioSearchedList :radios="radios" />
+      <RadioSearchedList 
+        :radios="radios"
+        :favorite-radios="favoriteRadios"  
+      />
       <SearchPagination
         v-if="radios.length"
         :current-page="page"
