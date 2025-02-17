@@ -1,4 +1,4 @@
-import { ref, provide, computed } from "vue";
+import { ref, computed } from "vue";
 import type { RadioStation } from "@/types/radio";
 import { RadioService } from "@/services/radio";
 import { debounce } from "@/utils/debounce";
@@ -98,19 +98,12 @@ export function useRadioStation() {
     play(playingRadioStation.value.url_resolved);
   };
 
-  
   const filteredFavoriteRadios = computed(() => {
     if (!favoriteSearch.value) return favoriteRadios.value;
     return favoriteRadios.value.filter((radio) =>
       radio.name.toLowerCase().includes(favoriteSearch.value.toLowerCase()),
     );
   });
-
-  provide("addFavoriteRadio", addFavoriteRadio);
-  provide("deleteFavoriteRadio", deleteFavoriteRadio);
-  provide("updateFavoriteRadio", updateFavoriteRadio);
-  provide("playingRadioStation", playingRadioStation);
-  provide("togglePlayback", togglePlayback);
 
   return {
     isLoading,
@@ -123,5 +116,9 @@ export function useRadioStation() {
     changePage,
     filteredFavoriteRadios,
     favoriteSearch,
+    addFavoriteRadio,
+    togglePlayback,
+    updateFavoriteRadio,
+    deleteFavoriteRadio,
   };
 }

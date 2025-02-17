@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { provide } from "vue";
 import { useRadioStation } from "@/composables/useRadioStation";
 import MainLayout from "@/layouts/MainLayout.vue";
 import SearchPagination from "@/components/index/SearchPagination.vue";
@@ -17,8 +18,18 @@ const {
   changePage,
   favoriteSearch,
   filteredFavoriteRadios,
-  favoriteRadios
+  favoriteRadios,
+  addFavoriteRadio,
+  deleteFavoriteRadio,
+  updateFavoriteRadio,
+  togglePlayback,
 } = useRadioStation();
+
+provide("addFavoriteRadio", addFavoriteRadio);
+provide("deleteFavoriteRadio", deleteFavoriteRadio);
+provide("updateFavoriteRadio", updateFavoriteRadio);
+provide("playingRadioStation", playingRadioStation);
+provide("togglePlayback", togglePlayback);
 </script>
 
 <template>
@@ -34,10 +45,7 @@ const {
       <p v-if="isLoading" class="text-gray-400 text-center my-4">
         🔄 Buscando rádios...
       </p>
-      <RadioSearchedList 
-        :radios="radios"
-        :favorite-radios="favoriteRadios"  
-      />
+      <RadioSearchedList :radios="radios" :favorite-radios="favoriteRadios" />
       <SearchPagination
         v-if="radios.length"
         :current-page="page"
